@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'question.dart';
 import './result.dart';
 import 'answer.dart';
-import './quiz.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  var _chosen = 0;
+  var _chosen = 1;
   final _question = const [
     {
       'question': 'How long is New Zealand’s Ninety Mile Beach?',
@@ -94,7 +93,7 @@ class MyAppState extends State<MyApp> {
   ];
 
   void _answerQuestion() {
-    if (_chosen < _question.length) {
+    if (_chosen <= _question.length) {
       setState(() {
         _chosen = _chosen + 1;
       });
@@ -115,6 +114,7 @@ class MyAppState extends State<MyApp> {
                 children: <Widget>[
                   Question(
                     _question[_chosen]['question']?.toString() ?? '',
+                    (_chosen).toString(),
                   ),
                   ...(_question[_chosen]['answers'] as List<String>)
                       .map((answer) {
@@ -126,4 +126,10 @@ class MyAppState extends State<MyApp> {
       ),
     );
   }
+}
+
+class ScreenArguments {
+  final String title;
+  final String message;
+  ScreenArguments(this.title, this.message);
 }
